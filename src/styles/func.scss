@@ -1,0 +1,144 @@
+/* 禁止选中文本 */
+.usn{
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  -o-user-select:none;
+  user-select:none;
+}
+
+/* 元素类型 */
+// .db { display: block; }
+// .dn { display: none; }
+// .di { display: inline }
+// .dib {display: inline-block;}
+@each $name,$val in (db:block,dn:none,di:inline,dib:inline-block) {
+.#{$name}{
+  display:$val;
+}
+}
+
+.transparent { opacity: 0 }
+
+
+/*文字排版*/
+.wn { /* 强制不换行 */
+  word-wrap:normal;
+  white-space:nowrap;
+}
+.wb { /* 强制换行 */
+  white-space:normal;
+  word-wrap:break-word;
+  word-break:break-all;
+}
+.wp { /* 保持空白序列*/
+  overflow:hidden;text-align:left;white-space:pre-wrap;word-wrap:break-word;word-break:break-all;
+}
+
+
+// .wes { /* 多出部分用省略号表示 , 用于一行 */
+//     overflow:hidden;
+//     word-wrap:normal;
+//     white-space:nowrap;
+//     text-overflow:ellipsis;
+// }
+
+@for $i from 1 through 4{
+.wes-#{$i} {
+  overflow: hidden;
+  @if($i==1){
+    word-wrap:normal;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+  }
+  @else{
+    display: -webkit-box;
+    white-space:normal;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $i;
+  }
+}
+}
+
+/* 溢出样式 */
+.ofh { overflow: hidden; }
+.ofs {overflow: scroll; }
+.ofa {overflow: auto; }
+.ofv {overflow: visible; }
+
+/* 定位方式 */
+.ps {position: static; }
+.pr {position: relative;zoom:1; }
+.pa {position: absolute; }
+.pf {position: fixed; }
+
+/* flex布局 */
+.df-sb {
+  display:flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.df-sa {
+  display:flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+/* 垂直居中 */
+.df-c {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.tb-c {
+  text-align:center;
+  display:table-cell;
+  vertical-align:middle;
+}
+.ts-c {
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+}
+.ts-mc {
+  position: absolute;
+  left: 0;right: 0;
+  bottom: 0; top: 0;
+  margin: auto;
+}
+
+
+/* 辅助 */
+.bg-cover {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+.bg-cover-all {
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.mg-lr{
+margin:0 10upx;	
+}
+
+
+.success{
+  color:$g-color-success;  
+}
+
+.danger{
+  color:$g-color-danger
+}
+
+.primary{
+  color:$g-color-primary
+}
+
+
+//字体
+.font-large{
+  font-size:0.5rem!important;
+}

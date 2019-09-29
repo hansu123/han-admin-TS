@@ -1,0 +1,61 @@
+//flex布局
+@mixin df-row($d:flex,$jc:null, $ai:null,$as:null,$fw:null) {
+  display:$d;
+	justify-content: $jc;
+	align-items: $ai;
+	align-self:$as;
+	df-wrap:$fw;
+}
+
+@mixin df-col($d:flex,$jc:null, $ai:null,$as:null) {
+  display:$d;
+	flex-direction: column;
+	justify-content: $jc;
+	align-items: $ai;
+	align-self:$as;
+}
+
+//grid布局
+@mixin dg($gtr:null,$gtc:null,$gg:null,$js:null,$as:null){
+	display:grid;
+	grid-template-rows: $gtr;//行高
+	grid-template-columns:$gtc; //列宽
+  grid-gap: $gg;
+	//元素在自己单元格中的排布
+	justify-self:$js;//水平排列
+	align-self:$as;//垂直排列
+}
+
+
+//position定位
+//absolute
+@mixin p-abs($t:null,$b:null,$l:null,$r:null,$z:null){
+	position:absolute;	
+	top:$t;
+	bottom:$b;
+	left:$l;
+	right:$r;
+	z-index:$z;
+}
+//fixed
+@mixin p-fix($t:null,$b:null,$l:null,$r:null,$z:null){
+	position:fixed;	
+	top:$t;
+	bottom:$b;
+	left:$l;
+	right:$r;
+	z-index:$z;
+}
+
+
+// 功能mixin
+// 生成min和max
+@mixin build-M($name:null,$min:null,$max:null){
+	min-#{$name}:$min;
+	max-#{$name}:$max;
+}
+//生成宽高相等
+@mixin build-square($value:100%){
+	width:$value;
+	height:$value;
+}

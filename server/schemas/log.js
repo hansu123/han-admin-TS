@@ -1,17 +1,21 @@
 const mongoose = require("mongoose");
 const mySchema = mongoose.Schema;
 let logSchema = new mySchema({
-  description:{
-    type:String,
-    required:true
-  },
-  title:{
+  cate: {
     type: String,
-    required:true
+    required: true
   },
-  date:{
-    type:String,
-    required:true
+  description: {
+    type: String,
+    required: true
+  },
+  title: {
+    type: String,
+    required: true
+  },
+  createAt: {
+    type: Number,
+    required: true
   }
 });
 module.exports = logSchema

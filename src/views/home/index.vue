@@ -56,8 +56,8 @@
             <div class="card_userInfo_content_header">
               <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
               <div style="margin-left:1rem">
-                <p style="font-weight:bold">admin</p>
-                <p>账号ID:admin</p>
+                <p style="font-weight:bold">{{roleInfo.name}}</p>
+                <p>账号角色:{{roleInfo.identity=="manager"?"管理员":"普通用户"}}</p>
               </div>
             </div>
           </div>
@@ -105,6 +105,7 @@
 <script lang="ts">
 import countTo from 'vue-count-to';
 import { PV } from "@/components";
+import {Getter} from "vuex-class"
 import { Component, Vue } from "vue-property-decorator";
 @Component({
   components: {
@@ -113,6 +114,7 @@ import { Component, Vue } from "vue-property-decorator";
   }
 })
 export default class Home extends Vue {
+  @Getter("roleInfo") roleInfo
   duration:number=5000
   startVal:number=0
   userNum:number=1877

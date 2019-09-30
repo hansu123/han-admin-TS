@@ -1,11 +1,15 @@
 const mongoose = require("mongoose");
 const mySchema = mongoose.Schema;
 let featureSchema = new mySchema({
-  level:{
-   type:Number,
+  cate:{
+   type:String,
    required:true
   },
-  describe:{
+  status:{
+   type:Number,
+   default:0
+  },
+  description:{
     type:String,
     required:true
   },

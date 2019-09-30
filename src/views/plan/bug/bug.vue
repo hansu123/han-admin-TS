@@ -6,7 +6,7 @@
         <el-button-group>
           <el-button type="primary" icon="el-icon-plus" @click="handleAdd">新增</el-button>
           <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
-          <el-button type="primary" icon="el-icon-refresh" @click="getList('refresh')"></el-button>
+          <el-button type="primary" icon="el-icon-refresh" @click="handleRefresh"></el-button>
         </el-button-group>
       </div>
     </table-toolbar>
@@ -19,7 +19,7 @@
       </el-table-column>
       <el-table-column label="类型" width="180" align="center">
         <template slot-scope="scope">
-          <el-tag type="danger">{{ scope.row.cate | bugCateFilter }}</el-tag>
+          <el-tag type="danger">{{ scope.row.cate }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column label="标题" align="center">
@@ -84,6 +84,22 @@
       </el-table-column>
     </el-table>
 
+    <!-- 分页 -->
+    <div class="block">
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="pagination.currentPage"
+        :page-sizes="pagination.pagesizes"
+        :page-size="pagination.pagesize"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="pagination.total"
+        v-if="pagination.total"
+      ></el-pagination>
+    </div>
+
+
+
     <my-dialog title="新增bug" :outerVisible.sync="isShowAddDialog">
       <add-form ref="addForm">
         <el-form-item>
@@ -102,7 +118,7 @@
 <script lang="ts">
 interface SearchValue {
   page: string;
-  cate?: string | number;
+  cate?: string;
   deadline?: string;
 }
 import tableMixin from "@/mixins/table";
@@ -140,6 +156,10 @@ export default class Bug extends Mixins(tableMixin) {
   }
   handleSearch() {
     this.getList(this._getList);
+  }
+
+  handleRefresh(){
+    this.getList(this._getList,"refresh");
   }
 
   created() {

@@ -11,13 +11,13 @@
           <el-input type="text" v-model="ruleForm.title" />
         </el-form-item>
         <el-form-item label="分类" prop="cate">
-          <el-select v-model="ruleForm.level" placeholder="请选择">
-            <el-option label="新功能" value="0"></el-option>
-            <el-option label="优化" value="1"></el-option>
+          <el-select v-model="ruleForm.cate" placeholder="请选择">
+            <el-option label="新功能" value="新功能"></el-option>
+            <el-option label="优化" value="优化"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="描述" prop="describe">
-          <el-input type="textarea" :rows="2" v-model="ruleForm.describe" maxlength="100" />
+        <el-form-item label="描述" prop="description">
+          <el-input type="textarea" :rows="2" v-model="ruleForm.description" maxlength="100" />
         </el-form-item>
 
         <el-form-item label="创建者" prop="creator">
@@ -46,9 +46,9 @@ import { Component, Vue, Prop, Watch, Mixins } from "vue-property-decorator";
 @Component({})
 export default class AddForm extends Mixins(formMixin) {
   ruleForm: any = {
-    level: "",
+    cate: "",
     title: "",
-    describe: "",
+    description: "",
     creator: "",
     deadline: "",
     name: "",
@@ -56,9 +56,9 @@ export default class AddForm extends Mixins(formMixin) {
   };
 
   rules: object = {
-    level: [{ required: true, message: "等级不能为空" }],
+    cate: [{ required: true, message: "等级不能为空" }],
     title: [{ required: true, message: "标题不能为空" }],
-    describe: [{ required: true, message: "描述不能为空" }],
+    description: [{ required: true, message: "描述不能为空" }],
     creator: [{ required: true, message: "创建者不能为空" }],
     deadline: [{ required: true, message: "截止日期不能为空" }],
     name: [{ required: true, message: "负责人不能为空" }]

@@ -5,10 +5,10 @@
         <el-input type="text" v-model="ruleForm.title" disabled />
       </el-form-item>
       <el-form-item label="分类" prop="cate">
-        <el-tag :type="ruleForm.level|statusTagTypeFilter">{{ ruleForm.level|planLevelFilter }}</el-tag>
+        <el-tag :type="ruleForm.cate|statusTagTypeFilter">{{ ruleForm.cate }}</el-tag>
       </el-form-item>
-      <el-form-item label="描述" prop="describe">
-        <el-input type="textarea" :rows="2" v-model="ruleForm.describe" maxlength="100" disabled />
+      <el-form-item label="描述" prop="description">
+        <el-input type="textarea" :rows="2" v-model="ruleForm.description" maxlength="100" disabled />
       </el-form-item>
 
       <el-form-item label="创建者" prop="name">
@@ -21,7 +21,7 @@
       </el-form-item>
 
       <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')" :disabled="!ruleForm.done">确定</el-button>
+        <el-button type="primary" @click="handleConfirm" :disabled="!ruleForm.done">确定</el-button>
         <el-button @click="resetForm('ruleForm')">重置</el-button>
       </el-form-item>
     </el-form>
@@ -40,15 +40,15 @@ export default class EditForm extends Mixins(formMixin) {
     done: [{ required: true, message: "请选择是否解决", trigger: "change" }]
   };
 
-  submitForm(formName) {
-    let res: boolean = (this as any).$refs[formName].validate();
+  handleConfirm() {
+    let res: boolean = (this as any).$refs.ruleForm.validate();
     if (res) {
       let { _id, done } = this.ruleForm;
       let data = { _id, done };
       let cb = () => {
         (this as any).$bus.$emit("cancel");
       };
-      done && this.saveData((this as any).$API.bugModel.EditFeature, data , cb);
+      done && this.saveData((this as any).$API.featureModel.EditFeature, data , cb);
     }
   }
 

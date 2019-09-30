@@ -5,13 +5,27 @@ const bugModel = require("../models/bug")
 const logModel = require("../models/log")
 
 router.get("/bugList", (req, res) => {
-  let query=req.query
-  console.log(query)
-  bugModel.find(query).then(doc => {
-    res.send({
-      list: doc
+  let params,query=req.query
+  if(query.deadline){
+     let {deadline,...data}=query
+     params={
+       deadline:{$lt:deadline},
+       ...data
+     }
+  }
+  else{
+    params=JSON.parse(JSON.stringify(query))
+  }
+  console.log(params)
+  bugModel.count(params).then(total=>{
+    bugModel.find(params).then(doc => {
+      res.send({
+        list: doc,
+        total
+      })
     })
   })
+
 })
 
 router.post("/bugEdit", (req, res) => {
@@ -20,8 +34,9 @@ router.post("/bugEdit", (req, res) => {
     if (doc) {
       if (doc.done) {
         let newLog = new logModel({
-          title: new Date().toLocaleDateString(),
-          date: new Date().toLocaleDateString(),
+          title: doc.title,
+          cate:'bug',
+          createAt: Date.now(),
           description: doc.title
         })
         newLog.save()

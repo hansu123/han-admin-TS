@@ -5,8 +5,8 @@
         <search-bar :searchData="searchConditions" ref="searchBar"></search-bar>
         <el-button-group>
           <el-button type="primary" icon="el-icon-plus" @click="handleAdd">新增</el-button>
-          <el-button type="primary" icon="el-icon-search" @click="search">搜索</el-button>
-          <el-button type="primary" icon="el-icon-refresh" @click="getList('refresh')"></el-button>
+          <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
+          <el-button type="primary" icon="el-icon-refresh" @click="handleRefresh"></el-button>
         </el-button-group>
       </div>
     </table-toolbar>
@@ -18,7 +18,7 @@
       </el-table-column>
       <el-table-column label="分类" width="180" align="center">
         <template slot-scope="scope">
-          <el-tag :type="scope.row.level?'success':''">{{ scope.row.level|planLevelFilter }}</el-tag>
+          <el-tag :type="scope.row.cate|planTagTypeFilter">{{ scope.row.cate}}</el-tag>
         </template>
       </el-table-column>
       <el-table-column label="标题" align="center">
@@ -87,31 +87,31 @@
         :page-size="pagination.pagesize"
         layout="total, sizes, prev, pager, next, jumper"
         :total="pagination.total"
+        v-if="pagination.total"
       ></el-pagination>
     </div>
 
     <!-- 弹出框 -->
     <my-dialog title="新增迭代需求" :outerVisible.sync="isShowAddDialog">
-    <add-form ref="addForm">
-      <el-form-item>
+      <add-form ref="addForm">
+        <el-form-item>
           <el-button type="primary" @click="addForm">确认</el-button>
           <el-button @click="resetForm('ruleForm')">重置</el-button>
-      </el-form-item>
-    </add-form>
+        </el-form-item>
+      </add-form>
     </my-dialog>
 
     <my-dialog title="修改迭代功能" :outerVisible.sync="isShowEditDialog">
-    <edit-form :ruleForm="rowData"></edit-form>
+      <edit-form :ruleForm="rowData"></edit-form>
     </my-dialog>
-
   </div>
 </template>
 
 <script lang="ts">
 interface SearchValue {
   page: string;
-  level: number | string;
-  deadline: string
+  cate: string;
+  deadline: string;
 }
 import tableMixin from "@/mixins/table";
 import { AddForm, EditForm } from "./components";
@@ -126,26 +126,29 @@ import { Component, Vue, Mixins } from "vue-property-decorator";
 export default class Plan extends Mixins(tableMixin) {
   searchConditions: SearchValue = {
     page: "feature",
-    level: "",
+    cate: "",
     deadline: ""
   };
-
 
   handleDelete(index, row) {
     console.log(index, row);
   }
 
-  search() {}
-
-  async _getList() {
-    return await (this as any).$API.featureModel.GetList();
+  handleSearch() {
+    this.getList(this._getList);
   }
 
- 
+  async _getList() {
+    let {page,...data}=this.searchConditions
+    let query=(this as any).$lodash.getSearchQueryData(data)
+    console.log(query)
+    return await (this as any).$API.featureModel.GetList(query);
+  }
+
   async addForm() {
-    let d=await (this as any).$refs.addForm._saveData()
-    this.isShowAddDialog=false
-    if(d.code==0){
+    let d = await (this as any).$refs.addForm._saveData();
+    this.isShowAddDialog = false;
+    if (d.code == 0) {
       this.getList(this._getList);
     }
   }
@@ -157,17 +160,20 @@ export default class Plan extends Mixins(tableMixin) {
 
   handleCurrentChange(val) {
     this.pagination.currentPage = val;
-    let {currentPage,pagesize}=this.pagination
-    let query={
-       currentPage,
-       pagesize
-    }
+    let { currentPage, pagesize } = this.pagination;
+    let query = {
+      currentPage,
+      pagesize
+    };
     this.getList(this._getList);
+  }
+
+  handleRefresh(){
+    this.getList(this._getList,"refresh");
   }
 
   created() {
     this.getList(this._getList);
   }
-
 }
 </script>

@@ -6,7 +6,7 @@
         <el-button-group>
           <el-button type="primary" icon="el-icon-plus" @click="handleAdd">新增</el-button>
           <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
-          <el-button type="primary" icon="el-icon-refresh" @click="getList('refresh')"></el-button>
+          <el-button type="primary" icon="el-icon-refresh" @click="handleRefresh"></el-button>
         </el-button-group>
       </div>
     </table-toolbar>
@@ -43,6 +43,7 @@
         :page-size="pagination.pagesize"
         layout="total, sizes, prev, pager, next, jumper"
         :total="articleTotal"
+        v-if="articleTotal"
       ></el-pagination>
     </div>
 
@@ -126,6 +127,10 @@ export default class Article extends Mixins(tableMixin) {
 
   handleSearch() {
     this.getList(this._getList);
+  }
+
+   handleRefresh(){
+    this.getList(this._getList,"refresh");
   }
 
   @Watch("pagination.currentPage")

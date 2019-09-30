@@ -1,22 +1,19 @@
-const planLevelFilter=(val:number):string=>{
+//功能以及log页面状态过滤器
+const planTagTypeFilter=(val:string):string=>{
   switch(val){
-    case 0:return "新功能";
-    case 1:return "优化";
+    case "bug":return "danger";
+    case "版本":return "warning";
+    case "新功能":return "primary";
+    case "优化":return "success";
     default:return "";
   }
 }
+
+
 
 const planIsDownFilter=(val:boolean):string=>val?"已解决":"未解决"
 
-//bug页面分类过滤器
-const bugCateFilter=(val:number):string=>{
-  switch(val){
-    case 0:return "UI";
-    case 1:return "参数错误";
-    case 2:return "逻辑错误";
-    default:return "";
-  }
-}
+
 
 //bug页面状态过滤器
 const bugStatusFilter=(val:number):string=>{
@@ -60,9 +57,8 @@ const userIdentityFilter=(val:string):string=>{
 
 
 export default {
-  planLevelFilter,
+  planTagTypeFilter,
   planIsDownFilter,
-  bugCateFilter,
   bugStatusFilter,
   statusTagTypeFilter,
   dateFilter,

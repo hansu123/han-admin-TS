@@ -13,7 +13,8 @@ context.keys().forEach((fileName)=>{
 export default new Vuex.Store({
   modules,
   getters:{
-    token:(state:any)=>state.admintor.token
+    token:(state:any)=>state.admintor.token,
+    roleInfo:(state:any)=>state.admintor.roleInfo
   },
   actions: {
     

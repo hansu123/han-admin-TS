@@ -58,13 +58,10 @@ export default class TableMixin extends Vue {
   async getList(func, r?: string) {
     this.loading = true
     let d = await func()
-    console.log(d)
     if (d.list.length > 0) {
       this.loading = false
       this.list = d.list;
-      if(d.total){
-        this.$set(this.pagination,"total",d.total)
-      }
+      this.$set(this.pagination,"total",d.total)
     }
     else {
       (this as any).$message({
@@ -73,6 +70,9 @@ export default class TableMixin extends Vue {
       });
       this.loading = false
       this.list = []
+      if(d.hasOwnProperty('total')){
+        this.$set(this.pagination,"total",d.total)
+      }
     }
 
     if (r === "refresh") {

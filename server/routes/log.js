@@ -17,4 +17,15 @@ router.get("/logList",(req,res)=>{
   })
 })
 
+router.post("/logAdd", (req, res) => {
+  let data = req.body
+  let newlog = new logModel(data)
+  newlog.save().then(doc => {
+    console.log(doc)
+    res.send({
+      code: 0
+    })
+  })
+})
+
 module.exports=router

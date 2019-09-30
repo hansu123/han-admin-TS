@@ -47,7 +47,6 @@ const i18n = new VueI18n({
 const files =require.context("@/components/common",false,/\.vue$/)
 files.keys().forEach(fileName=>{
   let key=fileName.replace(/(^\.\/|\.vue$)/g,"")
-  console.log(files(fileName).default)
   Vue.component(key,files(fileName).default)
 })
 

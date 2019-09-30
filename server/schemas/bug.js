@@ -2,10 +2,10 @@ const mongoose = require("mongoose");
 const mySchema = mongoose.Schema;
 let bugSchema = new mySchema({
   cate:{
-   type:Number,
+   type:String,
    required:true
   },
-  describe:{
+  description:{
     type:String,
     required:true
   },
@@ -27,7 +27,7 @@ let bugSchema = new mySchema({
   },
   status:{
     type:Number,
-    required:true
+    default:0
   },
   done:{
     type:Boolean,

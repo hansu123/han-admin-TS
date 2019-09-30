@@ -54,8 +54,17 @@ const logModel = require("../models/log")
 
 
 router.get("/featureList", (req, res) => {
-  featureModel.count({}).then(total=>{
-    featureModel.find({}).then(doc => {
+  let params,query=req.query
+  if(query.deadline){
+    let {deadline,...data}=query
+    params={deadline:{$lt:deadline},...data}
+  }
+  else{
+    params=JSON.parse(JSON.stringify(query))
+  }
+
+  featureModel.count(params).then(total=>{
+    featureModel.find(params).then(doc => {
       res.send({
         list: doc,
         total
@@ -70,8 +79,9 @@ router.post("/featureEdit", (req, res) => {
     if (doc) {
       if (doc.done) {
         let newLog = new logModel({
-          title: new Date().toLocaleDateString(),
-          date: new Date().toLocaleDateString(),
+          title: doc.title,
+          cate:doc.cate,
+          createAt:Date.now(),
           description: doc.title
         })
         newLog.save()
@@ -84,8 +94,7 @@ router.post("/featureEdit", (req, res) => {
 })
 
 router.post("/featureAdd", (req, res) => {
-  let data = req.body
-  let newfeature = new featureModel(data)
+  let data = req.body,newfeature = new featureModel(data)
   newfeature.save().then(doc => {
     console.log(doc)
     res.send({

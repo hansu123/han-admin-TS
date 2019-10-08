@@ -140,9 +140,9 @@ export default class Plan extends Mixins(tableMixin) {
 
   async _getList() {
     let {page,...data}=this.searchConditions
-    let query=(this as any).$lodash.getSearchQueryData(data)
+    let query=this.$lodash.getSearchQueryData(data)
     console.log(query)
-    return await (this as any).$API.featureModel.GetList(query);
+    return await this.$API.featureModel.GetList(query);
   }
 
   async addForm() {

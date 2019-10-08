@@ -136,6 +136,7 @@ export default class Bug extends Mixins(tableMixin) {
     cate: "",
     deadline: ""
   };
+  
 
   handleDelete(index, row) {
     console.log(index, row);
@@ -151,8 +152,8 @@ export default class Bug extends Mixins(tableMixin) {
 
   async _getList() {
     let { page, ...data } = this.searchConditions;
-    let query = (this as any).$lodash.getSearchQueryData(data);
-    return await (this as any).$API.bugModel.GetList(query);
+    let query = this.$lodash.getSearchQueryData(data);
+    return await this.$API.bugModel.GetList(query);
   }
   handleSearch() {
     this.getList(this._getList);

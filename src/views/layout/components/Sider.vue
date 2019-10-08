@@ -68,7 +68,7 @@ export default class Sider extends Vue {
     console.log(key, keyPath);
   }
   convertTitle(value) {
-    return (this as any).$t("siderBar." + value);
+    return this.$t("siderBar." + value);
   }
 }
 </script>

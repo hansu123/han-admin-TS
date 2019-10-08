@@ -78,7 +78,7 @@ export default class AddDialog extends Mixins(formMixin) {
     };
     if (res) {
       return this.saveData(
-        (this as any).$API.userModel.AddUser,
+        this.$API.userModel.AddUser,
         query
       );
     }

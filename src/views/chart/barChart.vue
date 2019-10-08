@@ -48,7 +48,7 @@ export default class BarChart extends Vue {
   };
 
   mounted() {
-    (this as any).$echarts.init((this as any).$refs.myBarChart,"walden").setOption(this.option, true);
+    this.$echarts.init((this as any).$refs.myBarChart,"walden").setOption(this.option, true);
   }
 }
 </script>

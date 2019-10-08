@@ -34,7 +34,7 @@ export default class Chart extends Vue {
     ]
   };
   mounted() {
-    (this as any).$echarts.init((this as any).$refs.myChart, "walden").setOption(this.option, true);
+    this.$echarts.init((this as any).$refs.myChart, "walden").setOption(this.option, true);
   }
 }
 </script>

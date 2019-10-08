@@ -24,12 +24,7 @@ request.interceptors.response.use((response:AxiosResponse) =>{
   return Promise.reject(err)
 })
 
-// type Method='get'|'GET'|'post'|'POST'|'put'|'PUT'|'patch'
-// interface RequestValue{
-// url:string,
-// params?:any,
-// data?:any,
-// }
+
 export const get = async (url:string, params:any={}) => {
   let d = await request({
     url,
@@ -48,14 +43,14 @@ export const post = async (url:string, data:any={}) => {
   return d.data
 }
 
-export const put = async (url:string, data:any={}) => {
+export const put = (url:string, data:any={}) => {
   return post(url,data)
 }
 
-export const patch = async (url:string, data:any={}) => {
+export const patch = (url:string, data:any={}) => {
   return post(url,data)
 }
 
-export const _delete = async (url:string, data:any={}) => {
+export const _delete = (url:string, data:any={}) => {
   return post(url,data)
 }

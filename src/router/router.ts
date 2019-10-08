@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 Vue.use(Router)
+import NProgress from 'nprogress'
 import store from "@/store/store"
 import baseRoutes from "./baseRouter"
 import asyncRoutes from "./asyncRouter"
@@ -30,6 +31,7 @@ router.beforeEach(
       if ((store as any).state.admintor.token) {
         store.dispatch("admintor/getRoute").then(() => {
           store.dispatch("admintor/getAllowedRoute").then(() => {
+            NProgress.start()
             next()// hack方法 确保addRoutes已完成 ,
           })
         });
@@ -40,5 +42,7 @@ router.beforeEach(
     }
   }
 )
+
+router.afterEach(() => {NProgress.done()})
 
 export default router

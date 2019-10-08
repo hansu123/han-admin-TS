@@ -19,6 +19,9 @@ import "@/styles/index.scss"
 //iconfont图标样式
 import "@/assets/css/iconfont.css";
 
+//引入nprogress
+import 'nprogress/nprogress.css'
+
 //懒加载插件
 import VueLazyload from 'vue-lazyload'
 Vue.use(VueLazyload,{

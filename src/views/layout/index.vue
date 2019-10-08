@@ -12,11 +12,7 @@
         <keep-alive>
           <el-main>
             <!-- <menu-tab></menu-tab> -->
-            <div style="position:absolute;top:2.2rem;bottom:0;left:0;right:0;padding:0.5rem">
-              <transition name="component-fade" mode="out-in">
-                <router-view></router-view>
-              </transition>
-            </div>
+            <main-body></main-body>
           </el-main>
         </keep-alive>
       </el-container>
@@ -25,13 +21,14 @@
 </template>
 
 <script lang="ts">
-import { NavBar, HomeSider, MenuTab } from "./components";
+import { NavBar, HomeSider, MenuTab, MainBody } from "./components";
 import { Component, Vue } from "vue-property-decorator";
 @Component({
   components: {
     NavBar,
     HomeSider,
-    MenuTab
+    MenuTab,
+    MainBody
   }
 })
 export default class Index extends Vue {

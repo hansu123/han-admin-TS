@@ -30,7 +30,7 @@ const routes: any =
             { path: '/plan/feature', name: 'feature', component: () => import("@/views/plan/feature/feature.vue"), meta: { title: "feature" } }
           ]
         },
-        { path: '/log', name: 'log', component: resolve => require(['../views/log/log.vue'], resolve), meta: { icon: ['iconfont', 'icon-rizhi'], title: "log" } },
+        { path: '/log', name: 'log', component: () => import("@/views/log/log.vue"), meta: { icon: ['iconfont', 'icon-rizhi'], title: "log" } },
       ]
     }
   ]

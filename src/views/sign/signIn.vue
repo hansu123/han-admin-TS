@@ -68,13 +68,14 @@
 
 <script lang="ts">
 import { Component, Vue, Provide } from "vue-property-decorator";
-import { Action, namespace } from "vuex-class";
+import { Getter, Action, namespace } from "vuex-class";
 const admintor = namespace("admintor");
 @Component({
   components: {}
 })
 export default class signIn extends Vue {
   @admintor.Action("checkLogin") checkLogin;
+  @Getter('token') token;
   @Provide() ruleForm: { name: string; password: string; type: any[] } = {
     name: "",
     password: "",
@@ -98,7 +99,7 @@ export default class signIn extends Vue {
       if (valid) {
         this.checkLogin(this.ruleForm);
       } else {
-        (this as any).$message({
+        this.$message({
           showClose: true,
           type: "warning",
           message: "请仔细核对信息后再提交"
@@ -109,7 +110,7 @@ export default class signIn extends Vue {
 
   mounted() {
     const h = this.$createElement;
-    !(this as any).$store.getters.token&&this.$notify({
+    !this.token&&this.$notify({
       title: "提示",
       message: h(
         "div",

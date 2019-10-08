@@ -43,7 +43,7 @@ export default class Chart extends Vue {
   };
   radioType: string = "周";
   mounted() {
-    (this as any).$echarts
+    this.$echarts
       .init((this as any).$refs.mylineChart, "walden")
       .setOption(this.option, true);
   }

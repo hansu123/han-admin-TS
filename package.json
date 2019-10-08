@@ -17,6 +17,7 @@
     "jwt-decode": "^2.2.0",
     "marked": "^0.7.0",
     "mavon-editor": "^2.7.5",
+    "nprogress": "^0.2.0",
     "qs": "^6.8.0",
     "vue": "^2.6.10",
     "vue-class-component": "^7.0.2",

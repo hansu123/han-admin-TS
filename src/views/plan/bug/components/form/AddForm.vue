@@ -71,12 +71,12 @@ export default class AddForm extends Mixins(formMixin) {
       ...this.ruleForm
     };
     if(res){
-      return this.saveData((this as any).$API.bugModel.AddBug,query)
+      return this.saveData(this.$API.bugModel.AddBug,query)
     }
   }
 
   beforeDestroy() {
-    (this as any).$bus.$off("cancel")
+    this.$bus.$off("cancel")
   }
 }
 </script>

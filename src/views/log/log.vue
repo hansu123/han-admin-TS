@@ -59,7 +59,7 @@ export default class Log extends Mixins(tableMixin) {
   }
 
   async _getList() {
-    let d = await (this as any).$API.logModel.GetList();
+    let d = await this.$API.logModel.GetList();
     return d
   }
 

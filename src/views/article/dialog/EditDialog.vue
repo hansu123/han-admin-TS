@@ -66,7 +66,7 @@ export default class EditDialog extends Mixins(dialogMixin) {
       if (valid) {
         let { _id, title, cate, summary } = this.ruleForm;
         let data = { _id, title, cate, summary };
-        let d = await (this as any).$API.articleModel.EditArticle(data);
+        let d = await this.$API.articleModel.EditArticle(data);
         if (d.code === 0) {
           this.$message({
             message: "修改成功",

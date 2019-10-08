@@ -14,11 +14,12 @@ import { Component, Vue, Watch } from "vue-property-decorator";
 export default class BreadCrumb extends Vue {
   breadList: any[] = [];
   convertTitle(value) {
-    return (this as any).$t("siderBar." + value);
+    return this.$t("siderBar." + value);
   }
 
   @Watch("$route")
   routeChange() {
+    console.log(this.$route.matched)
     this.breadList = this.$route.matched.map(route => route.name);
     if(this.breadList[1]==="home"){
       console.log(this.breadList)
@@ -29,6 +30,7 @@ export default class BreadCrumb extends Vue {
 </script>
 <style lang='scss' scoped>
 @import "@/styles/mixin.scss";
+@import "@/styles/global.scss";
 .bread_wrap {
   width: 100%;
   height: 1.2rem;
@@ -42,7 +44,7 @@ export default class BreadCrumb extends Vue {
     height:100%;
     }
     &:last-child{
-     color:rgb(230, 161, 105);
+     color:$g-color-warning
     }
   }
 }

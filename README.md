@@ -1,6 +1,10 @@
+# Han-CMS
+
+![](https://hansu-1253325863.cos.ap-shanghai.myqcloud.com/newblog/web/icon-img/icon.png)
 
 
 
+![](<https://img.shields.io/badge/%E8%84%9A%E6%89%8B%E6%9E%B6-vue--cli3-brightgreen>)![](<https://img.shields.io/badge/%E7%89%88%E6%9C%AC-v1.0.0-brightgreen>)![](<https://img.shields.io/badge/developer-hansu-brightgreen>)
 
 
 
@@ -508,6 +512,10 @@ this.userData[j]=this.allUserData[min]
 
 [mongoose使用详解]([https://segmentfault.com/a/1190000008245062](https://segmentfault.com/a/1190000008245062))
 
+
+
+
+
 #### markdown的整合
 
 ##### 富文本编辑器
@@ -536,11 +544,11 @@ marked.setOptions({
 
 dialog关闭按钮没有点击函数，导致无法动态传递outVisible，想法是写入watch监听每一次outVisible的变化，只要为false就执行动态传值。
 
-```javascript
+```ts
 watch:{
-outerVisible(newname,oldname){
-if(!newname){this.handleStatus()}
-}
+	outerVisible(newname,oldname){
+		if(!newname){this.handleStatus()}
+	}
 }
 ```
 
@@ -665,11 +673,11 @@ export default class EditDialog extends Mixins(dialogMixin) {
   }
 
   submitForm(formName) {
-    (this as any).$refs[formName].validate(async (valid: boolean) => {
+    this.$refs[formName].validate(async (valid: boolean) => {
       if (valid) {
         let { _id, title, cate, summary } = this.ruleForm;
         let data = { _id, title, cate, summary };
-        let d = await (this as any).$API.articleModel.EditArticle(data);
+        let d = await this.$API.articleModel.EditArticle(data);
         if (d.code === 0) {
           this.$message({
             message: "修改成功",
@@ -695,35 +703,6 @@ export default class EditDialog extends Mixins(dialogMixin) {
 
 
 
-### echarts
-
-#### 1. 基础用法
-
-
-
-#### 2. 主题切换
-
-[官网主题地址](<https://echarts.baidu.com/theme-builder/>)
-
-首先在node_modules会内置一些主题js包，我们可以直接使用
-
-```
-require("/echarts/theme/")
-```
-
-当然我们可以选择更多的主题
-
-使用方法：
-
-1. 下载或复制以下的主题保存至 `*.json` 文件；
-2. 读取该 JSON 文件，并使用 `obj = JSON.parse(data)` 将其转换成对象；
-3. 调用 `echarts.registerTheme('walden', obj)` 注册主题；
-4. 使用 `echarts.init(dom, 'walden')` 创建图表，第二个参数即为刚才注册的主题名字。
-
-```
-
-```
-
 
 
 
@@ -738,10 +717,18 @@ require("/echarts/theme/")
 
 [优化后台](<https://juejin.im/post/5c76843af265da2ddd4a6dd0>)
 
-
-
-
-
 linux
 
 [升级node导致pm2无法正常使用的解决方案](<https://www.cnblogs.com/linx/p/10948529.html>)
+
+
+
+
+
+
+
+
+
+markdown的编写
+
+[git角标生成](<https://shields.io/category/build>)

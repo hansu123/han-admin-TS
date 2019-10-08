@@ -70,12 +70,12 @@ export default class AddForm extends Mixins(formMixin) {
       ...this.ruleForm
     };
     if(res){
-      return this.saveData((this as any).$API.featureModel.AddFeature,query)
+      return this.saveData(this.$API.featureModel.AddFeature,query)
     }
   }
 
   beforeDestroy() {
-    (this as any).$bus.$off("cancel")
+    this.$bus.$off("cancel")
   }
 }
 </script>

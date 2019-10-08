@@ -75,8 +75,8 @@ export default class AddDialog extends Mixins(formMixin) {
       ...this.ruleForm
     };
     if (res) {
-      console.log((this as any).$API.logModel.AddLog);
-      return this.saveData((this as any).$API.logModel.AddLog, query);
+      console.log(this.$API.logModel.AddLog);
+      return this.saveData(this.$API.logModel.AddLog, query);
     }
   }
 }

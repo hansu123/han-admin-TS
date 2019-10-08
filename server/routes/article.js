@@ -6,8 +6,9 @@ const articleModel = require("../models/article")
 const multer = require("multer");
 const fs = require("fs");
 
-const upload = multer({ dest: "static/upload" });
+const upload = multer({ dest: "static/upload/article" });
 
+const {cmder,rmDirFiles}=require("../utils/cmd")
 
 //腾讯cos
 const myCos = require("../utils/cos")
@@ -79,14 +80,15 @@ router.post("/articleAdd", passport.authenticate("jwt", { session: false }), upl
 
     filename = Date.now() + Math.ceil(Math.random() * 100) + originalname.substr(i - 1);
 
-    fs.renameSync(path, "static/upload/" + filename, (err) => {
-        if (err); throw err;
+    let filePath = "static/upload/article/"
 
+    fs.renameSync(path, filePath + filename, (err) => {
+        if (err); throw err;
     })
 
     let query = {
         Key: "/han-admin-TS/img/blog/" + filename,
-        Body: fs.createReadStream("static/upload/" + filename)
+        Body: fs.createReadStream(filePath + filename)
     }
 
     myCos.upload(query,(d)=>{
@@ -105,6 +107,15 @@ router.post("/articleAdd", passport.authenticate("jwt", { session: false }), upl
             });
             let newArticle=new articleModel(data)
             newArticle.save().then(() => {
+                if (process.env.NODE_ENV === "production") {
+                    cmder(`rm -f ./${filePath}*`).then(d => {
+                        console.log(d)
+                    })
+                }
+                else {
+                    // 兼容windows
+                    rmDirFiles(`./${filePath}`);
+                }
                 res.send({ code: 0 });
             });
         }

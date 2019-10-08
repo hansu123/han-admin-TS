@@ -15,7 +15,7 @@ import { Component, Vue, Prop, Watch, Mixins } from "vue-property-decorator";
 @Component({})
 export default class EditDialog extends Mixins(dialogMixin) {
   created() {
-    (this as any).$bus.$on("cancel",()=>{
+    this.$bus.$on("cancel",()=>{
       console.log("save")
       this.handleCancel()
     })

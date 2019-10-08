@@ -1,5 +1,6 @@
 import lodash from "@/utils/lodash"
 class Storage{
+  
 get(key:string):any{
   let value:string=<string>localStorage.getItem(key)
   return lodash.IsJSONStr(value)?JSON.parse(value):value

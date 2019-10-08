@@ -87,7 +87,7 @@ export default class User extends Mixins(tableMixin) {
   handleSearch(){}
 
   async _getList() {
-    let d = await (this as any).$API.userModel.GetList();
+    let d = await this.$API.userModel.GetList();
     return d
   }
 

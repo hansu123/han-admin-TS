@@ -90,7 +90,7 @@ export default class Article extends Mixins(tableMixin) {
   async _getList() {
     let { pagesize, currentPage } = this.pagination;
     let {page,...data}=this.searchConditions
-    let query=(this as any).$lodash.getSearchQueryData(data)
+    let query=this.$lodash.getSearchQueryData(data)
     let params = Object.assign(
       { pagesize, currentPage },
       query
@@ -100,7 +100,7 @@ export default class Article extends Mixins(tableMixin) {
  
 
   async handleDelete(data) {
-    let res = await (this as any).$confirm(
+    let res = await this.$confirm(
       "此操作将永久删除文章, 是否继续?",
       "提示",
       {
@@ -114,7 +114,7 @@ export default class Article extends Mixins(tableMixin) {
         await this.delArticleAction(data._id);
       }
     } catch (err) {
-      (this as any).$message({
+      this.$message({
         type: "info",
         message: "已取消删除"
       });
@@ -122,7 +122,7 @@ export default class Article extends Mixins(tableMixin) {
   }
   
   handleAdd(){
-    (this as any).$router.push("/article/addArticle")
+    this.$router.push("/article/addArticle")
   }
 
   handleSearch() {

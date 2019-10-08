@@ -12,7 +12,7 @@
 import { Vue, Component } from "vue-property-decorator";
 @Component({
 	mounted() {
-		(this as any).$message({
+		this.$message({
 		type:"error",
 		message:"访问地址出错，点击下方按钮返回首页"
 		})

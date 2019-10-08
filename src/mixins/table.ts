@@ -64,7 +64,7 @@ export default class TableMixin extends Vue {
       this.$set(this.pagination,"total",d.total)
     }
     else {
-      (this as any).$message({
+      this.$message({
         type: "error",
         message: "暂无数据"
       });
@@ -76,7 +76,7 @@ export default class TableMixin extends Vue {
     }
 
     if (r === "refresh") {
-      (this as any).$message({
+      this.$message({
         type: "success",
         message: "已是最新数据"
       });

@@ -46,14 +46,14 @@ export default class EditForm extends Mixins(formMixin) {
       let { _id, done } = this.ruleForm;
       let data = { _id, done };
       let cb=()=>{
-        (this as any).$bus.$emit("cancel")
+        this.$bus.$emit("cancel")
       }
-      done&&this.saveData((this as any).$API.bugModel.EditBug,data,cb)
+      done&&this.saveData(this.$API.bugModel.EditBug,data,cb)
     }
   }
   
   beforeDestroy() {
-    (this as any).$bus.$off("cancel")
+    this.$bus.$off("cancel")
   }
   
 }

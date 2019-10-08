@@ -132,7 +132,7 @@ export default class Add extends Vue{
 
           if (!file) {
             // 若未选择文件
-            (this as any).message({
+            this.$message({
               message: "请添加文件",
               type: "warning"
             });
@@ -146,23 +146,23 @@ export default class Add extends Vue{
           formData.append("summary", summary);
           formData.append("content", marked(content));
           console.log(formData.get("file"));
-          (this as any).$API.articleModel.AddArticle(formData,config)
+          this.$API.articleModel.AddArticle(formData,config)
             .then(() => {
-              (this as any).$message({
+              this.$message({
                 message: "添加成功",
                 type: "success"
               });
             })
             .catch(err => {
               if (err) {
-                (this as any).$message({
+                this.$message({
                   message: "添加失败",
                   type: "error"
                 });
               }
             });
         } else {
-          (this as any).$message({
+          this.$message({
             message: "请填写正确信息",
             type: "warning"
           });

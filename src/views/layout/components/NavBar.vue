@@ -55,7 +55,7 @@ export default class NavBar extends Vue {
     if (command == "info") {
       console.log("个人信息");
     } else if (command == "signout") {
-      let res = await (this as any).$confirm("你确定要退出吗？", "提示", {
+      let res = await this.$confirm("你确定要退出吗？", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
@@ -63,7 +63,7 @@ export default class NavBar extends Vue {
       if (res) {
         this.signOutAction();
       } else {
-        (this as any).$message({
+        this.$message({
           type: "info",
           message: "已取消"
         });

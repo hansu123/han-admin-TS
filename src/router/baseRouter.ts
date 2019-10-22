@@ -5,11 +5,11 @@ const routes =
     name: 'signIn',
     component:()=>import('@/views/sign/signIn.vue')
   },
-  {
-    path: '/signup',
-    name: 'signup',
-    component: () => import("@/views/sign/signUp.vue")
-  },
+  // {
+  //   path: '/signup',
+  //   name: 'signup',
+  //   component: () => import("@/views/sign/signUp.vue")
+  // },
   {
     path: '/signIn',
     name: 'signIn',

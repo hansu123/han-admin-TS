@@ -30,7 +30,6 @@ export default class BreadCrumb extends Vue {
 </script>
 <style lang='scss' scoped>
 @import "@/styles/mixin.scss";
-@import "@/styles/global.scss";
 .bread_wrap {
   width: 100%;
   height: 1.2rem;

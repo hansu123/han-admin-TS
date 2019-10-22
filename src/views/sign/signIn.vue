@@ -43,23 +43,30 @@
                 @keyup.enter.native="submitForm('ruleForm')"
               ></el-input>
             </el-form-item>
+            <el-form-item label="验证码" prop="captcha">
+              <el-input placeholder="请输入验证码" v-model="ruleForm.captcha">
+                <template slot="append">
+                  <img :src="captchaSrc" @click="updateCaptcha" style="cursor:pointer">
+                </template>
+              </el-input>
+            </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="submitForm('ruleForm')" class="signin-button">立即登陆</el-button>
             </el-form-item>
             <el-form-item>
-              <el-checkbox-group v-model="ruleForm.type">
+              <!-- <el-checkbox-group v-model="ruleForm.type">
                 <el-checkbox label="记住密码" name="type"></el-checkbox>
                 <el-checkbox label="15天自动登录" name="type"></el-checkbox>
-              </el-checkbox-group>
-              <p class="admin">测试账号:admin 密码:123456</p>
+              </el-checkbox-group> -->
+              <p class="admin">测试账号:dev 密码:123456</p>
             </el-form-item>
           </el-form>
         </div>
         <div class="signup-item">
-          <span>
+          <!-- <span>
             还没有账号，
             <router-link to="/signUp">立即注册</router-link>
-          </span>
+          </span>-->
         </div>
       </div>
     </div>
@@ -70,16 +77,14 @@
 import { Component, Vue, Provide } from "vue-property-decorator";
 import { Getter, Action, namespace } from "vuex-class";
 const admintor = namespace("admintor");
-@Component({
-  components: {}
-})
+@Component({})
 export default class signIn extends Vue {
   @admintor.Action("checkLogin") checkLogin;
-  @Getter('token') token;
-  @Provide() ruleForm: { name: string; password: string; type: any[] } = {
+  @Getter("token") token;
+  ruleForm: { name: string; password: string; captcha: any } = {
     name: "",
     password: "",
-    type: []
+    captcha: ""
   };
   rules: object = {
     name: [
@@ -89,10 +94,13 @@ export default class signIn extends Vue {
     password: [
       { required: true, message: "请输入密码", trigger: "blur" },
       { min: 6, max: 20, message: "长度在 6 到 20 个字符", trigger: "blur" }
-    ]
+    ],
+    captcha: [{ required: true, message: "请输入验证码", trigger: "blur" }]
   };
 
-  @Provide() loading: boolean = false;
+  captchaSrc:string=""
+
+  loading: boolean = false;
   submitForm(formName: string) {
     this.loading = true;
     (this.$refs[formName] as any).validate((valid: boolean) => {
@@ -107,17 +115,25 @@ export default class signIn extends Vue {
       }
     });
   }
+  
+  //更新验证码
+  async updateCaptcha(e){
+    let d=await this.$API.admintorModel.getCaptcha()
+    this.captchaSrc="http://localhost:3300/admin/captcha?"+d
+  }
 
-  mounted() {
+  async mounted() {
     const h = this.$createElement;
-    !this.token&&this.$notify({
-      title: "提示",
-      message: h(
-        "div",
-        { style: "color: teal" },
-        [h('p',{},"目前角色有两个"),h('p',{},"账号:admin，密码:123456")]
-      )
-    });
+    !this.token &&
+      this.$notify({
+        title: "提示",
+        message: h("div", { style: "color: teal" }, [
+          h("p", {}, "目前角色有两个"),
+          h("p", {}, "账号:admin，密码:123456")
+        ])
+      });
+    let d=await this.$API.admintorModel.getCaptcha()
+    this.captchaSrc="http://localhost:3300/admin/captcha?"+d
   }
 }
 </script>

@@ -3,6 +3,10 @@ interface API {
   [proppName:string]:any;
 }
 class AdmintorModel{
+
+ getCaptcha(params:API){
+  return get("admin/captcha",params)
+ }
  signIn(data:API){
    return post("/admin/login",data)
  }

@@ -7,6 +7,7 @@ declare module 'vue/types/vue' {
         $API:any;
         $storage:any;
         $bus:any;
+        $xssFilter:any;
     }
 }
 

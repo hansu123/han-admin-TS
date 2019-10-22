@@ -2,6 +2,12 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from '@/router/router'
 import store from '@/store/store'
+import VueSkeletonLoading from "vue-skeleton-loading"
+//编辑器
+import mavonEditor from 'mavon-editor'
+import "mavon-editor/dist/css/index.css";
+Vue.use(mavonEditor)
+//饿了么
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI);
@@ -12,6 +18,9 @@ Vue.use(VueParticles)
 
 Vue.config.productionTip = false
 
+
+//骨架屏
+Vue.use(VueSkeletonLoading);
 
 //引入样式
 import "@/styles/index.scss"

@@ -26,7 +26,6 @@ export default class MenuTab extends Vue{
 }
 </script>
 <style lang='scss' scoped>
-@import "@/styles/global.scss";
 .menuTab_wrap{
   width:100%;
   height:0.6rem;

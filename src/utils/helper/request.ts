@@ -11,7 +11,7 @@ let request = axios.create({
 })
 
 request.interceptors.request.use((config:AxiosRequestConfig)=>{
-  if((store as any).state.admintor.token){
+  if(store.state.admintor.token){
     config.headers.Authorization=(store as any).state.admintor.token
   }
   return config

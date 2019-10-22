@@ -1,14 +1,14 @@
-import { SET_TOKEN, SET_ROLEINFO, SET_ROLEROUTE,SET_ROUTE } from "@/store/utils/mutationType";
+import { SET_TOKEN, SET_ROLEINFO, SET_ROLEROUTE, SET_ROUTE } from "@/store/utils/mutationType";
 import dejwt from 'jwt-decode'
 import asyncRouter from "@/router/asyncRouter"
 import API from "@/apis"
 import storage from "@/utils/helper/storage"
 import router from "@/router/router"
-import {Loading,Message} from "element-ui";
+import { Loading, Message } from "element-ui";
 
 var loading
 
-function startLoading():void{
+function startLoading(): void {
   loading = Loading.service({
     lock: true,
     text: "拼命加载中",
@@ -16,90 +16,89 @@ function startLoading():void{
   })
 }
 
-function closeLoading():void{
+function closeLoading(): void {
   loading.close()
 }
 
-interface AdmintorObj{
-namespaced:boolean,
-state:any,
-getters?:any,
-mutations?:any,
-actions?:any
+interface AdmintorObj {
+  namespaced: boolean,
+  state: any,
+  getters?: any,
+  mutations?: any,
+  actions?: any
 }
 
-const admintor:AdmintorObj = {
+const admintor: AdmintorObj = {
   namespaced: true,
   state: {
-    token: storage.get("eleToken")||"",
-    roleInfo: <string>storage.get('roleInfo')||null,
+    token: storage.get("eleToken") || "",
+    roleInfo: <string>storage.get('roleInfo') || null,
     roleRoute: undefined,
-    allRoute:undefined
+    allRoute: undefined
   },
   mutations: {
-    [SET_TOKEN](state:any, token:string) {
+    [SET_TOKEN](state: any, token: string) {
       state.token = token;
-      storage.set("eleToken",token)
+      storage.set("eleToken", token)
     },
-    [SET_ROLEINFO](state:any, myToken:any) {
+    [SET_ROLEINFO](state: any, myToken: any) {
       state.roleInfo = myToken;
-      storage.set("roleInfo",myToken)
+      storage.set("roleInfo", myToken)
     },
-    [SET_ROLEROUTE](state:any, route:any[]) {
+    [SET_ROLEROUTE](state: any, route: any[]) {
       state.roleRoute = route;
     },
-    [SET_ROUTE](state:any, route:any[]) {
+    [SET_ROUTE](state: any, route: any[]) {
       state.allRoute = route;
     },
   },
   actions: {
-    async checkLogin({commit}:any, payload:any) {
+    async checkLogin({ commit }: any, payload: any) {
       startLoading()
-      let d = await API.admintorModel.signIn(payload);
-      if(d.code===0){
-        const { token } = d;
+      let {code,message,token} = await API.admintorModel.signIn(payload);
+      if (code === 0) {
         let myToken = dejwt(token);
         commit(SET_TOKEN, token);
         commit(SET_ROLEINFO, myToken);
         Message({
-          type:"success",
-          message:"登录成功"
+          type: "success",
+          message
         })
-        setTimeout(()=>{
+        setTimeout(() => {
           closeLoading()
           router.push("/home")
-        },1000)
+        }, 1000)
       }
-      else{
+      else {
         closeLoading()
         Message({
-          type:"error",
-          message:"登录失败"
+          type: "error",
+          message
         })
       }
     },
-    async signUpAction({commit}:any, payload:any) {
+    async signUpAction({ commit }: any, payload: any) {
       startLoading()
       let d = await API.admintorModel.Regist(payload);
-      if(d.code===0){
+      if (d.code === 0) {
         Message({
-          type:"success",
-          message:"注册成功"
+          type: "success",
+          message: "注册成功"
         })
-        setTimeout(()=>{
+        setTimeout(() => {
           closeLoading()
           router.push("/signIn")
-        },1000)
+        }, 1000)
       }
-      else{
+      else {
         closeLoading()
         Message({
-          type:"error",
-          message:"注册失败"
+          type: "error",
+          message: "注册失败"
         })
       }
     },
-    async signOutAction({commit}:any):Promise<any>{
+    async signOutAction({ commit }: any): Promise<any> {
       storage.remove("eleToken");
       storage.remove("roleInfo");
       commit(SET_TOKEN, "");
@@ -110,14 +109,14 @@ const admintor:AdmintorObj = {
       });
       router.push("/signIn");
     },
-    async getRoute({ commit }:any) {
+    async getRoute({ commit }: any) {
       let { identity } = storage.get("roleInfo");
       let d = await API.admintorModel.getRoutes({ identity })
-   
+
       // let treeRoutes = emitTree(d.data, 'R_ID', 'R_PID')
       commit(SET_ROLEROUTE, d)
     },
-    async getAllowedRoute({state,commit}:any){
+    async getAllowedRoute({ state, commit }: any) {
       // console.log(state.roleRoute)
       let finalRoutes = getFinalRoute(state.roleRoute)
       // console.log(finalRoutes)
@@ -126,16 +125,15 @@ const admintor:AdmintorObj = {
   }
 }
 
-function getFinalRoute(routes:any[]) {
+function getFinalRoute(routes: any[]) {
   // let localRoutes=handleTreeData(asyncRouter) 
   // console.log(localRoutes)
-  let firstRouters=routes;
-  let allowedRouter:any[]=[]
-  let findLocalRoute = function(array:any[], base:boolean=false) {
-    let replyResult:any[] = [];
-    array.forEach(function(route) {
-      
-      if (compareRouter(firstRouters,route)){
+  let firstRouters = routes;
+  let allowedRouter: any[] = []
+  let findLocalRoute = function (array: any[], base: boolean = false) {
+    let replyResult: any[] = [];
+    array.forEach(function (route) {
+      if (compareRouter(firstRouters, route)) {
         if (Array.isArray(route.children)) {
           route.children = findLocalRoute(route.children, route.path);
         };
@@ -149,10 +147,10 @@ function getFinalRoute(routes:any[]) {
     }
   };
   findLocalRoute(asyncRouter);
-  
+
   return allowedRouter;
 
-  function compareRouter(routes:any[], val:any) {
+  function compareRouter(routes: any[], val: any) {
     let isRouter = routes.filter((route) => {
       return route.route == val.name
     })

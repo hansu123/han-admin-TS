@@ -8,7 +8,7 @@
               <div>
                 <p style="font-size:0.3rem">新增用户</p>
                 <p style="font-size:0.8rem" class="success">
-                  <count-to :startVal='startVal' :endVal='userNum' :duration='duration'></count-to>
+                  <count-to :startVal="startVal" :endVal="userNum" :duration="duration"></count-to>
                 </p>
               </div>
               <div>
@@ -22,7 +22,7 @@
               <div>
                 <p style="font-size:0.3rem">新增留言</p>
                 <p style="font-size:0.8rem" class="primary">
-                  <count-to :startVal='startVal' :endVal='messageNum' :duration='duration'></count-to>
+                  <count-to :startVal="startVal" :endVal="messageNum" :duration="duration"></count-to>
                 </p>
               </div>
               <div>
@@ -36,7 +36,7 @@
               <div>
                 <p style="font-size:0.3rem">新增文章</p>
                 <p style="font-size:0.8rem" class="danger">
-                  <count-to :startVal='startVal' :endVal='articleNum' :duration='duration'></count-to>
+                  <count-to :startVal="startVal" :endVal="articleNum" :duration="duration"></count-to>
                 </p>
               </div>
               <div>
@@ -62,7 +62,11 @@
             </div>
           </div>
           <div class="card_userInfo_content_body">
-            <dl v-for="item of blogMainInfo" :key="item.title" class="card_userInfo_content_body_item">
+            <dl
+              v-for="item of blogMainInfo"
+              :key="item.title"
+              class="card_userInfo_content_body_item"
+            >
               <dt>{{item.title}}</dt>
               <dd>{{item.num}}</dd>
             </dl>
@@ -85,7 +89,11 @@
         </el-card>
 
         <!-- 最新公告 -->
-        <el-card class="box-card notice_content" :body-style="{padding:'0'}" style="margin-top:1rem">
+        <el-card
+          class="box-card notice_content"
+          :body-style="{padding:'0'}"
+          style="margin-top:1rem"
+        >
           <div slot="header" class="clearfix">
             <span>最新公告</span>
             <el-button style="float: right; padding: 3px 0" type="text">查看更多</el-button>
@@ -103,9 +111,9 @@
 </template>
 
 <script lang="ts">
-import countTo from 'vue-count-to';
+import countTo from "vue-count-to";
 import { PV } from "@/components";
-import {Getter} from "vuex-class"
+import { Getter } from "vuex-class";
 import { Component, Vue } from "vue-property-decorator";
 @Component({
   components: {
@@ -114,21 +122,19 @@ import { Component, Vue } from "vue-property-decorator";
   }
 })
 export default class Home extends Vue {
-  @Getter("roleInfo") roleInfo
-  duration:number=5000
-  startVal:number=0
-  userNum:number=1877
-  messageNum:number=1163
-  articleNum:number=898
+  @Getter("roleInfo") roleInfo;
+  duration: number = 5000;
+  startVal: number = 0;
+  userNum: number = 1877;
+  messageNum: number = 1163;
+  articleNum: number = 898;
 
   blogMainInfo: any[] = [
     { title: "文章数量", num: 11 },
     { title: "余额", num: 12 },
     { title: "角色", num: 22 }
   ];
-  mounted() {
-    
-  }
+  mounted() {}
 }
 </script>
 <style lang='scss' scoped>

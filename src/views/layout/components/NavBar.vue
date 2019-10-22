@@ -95,7 +95,6 @@ export default class NavBar extends Vue {
 </script>
 <style lang='scss' scoped>
 @import "@/styles/mixin.scss";
-@import "@/styles/global.scss";
 .home-header {
   padding: 0 0.2rem;
   color: #fff;

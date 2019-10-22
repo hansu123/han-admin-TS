@@ -12,6 +12,10 @@ class ArticleModel {
     return get("article/articleList", params)
   }
 
+  GetTagList(params:API):Promise<any>{
+    return get("article/tagList",params)
+  }
+
   DelArticle(data: API): Promise<any> {
     return _delete("article/articleDelete", data)
   }

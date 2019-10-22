@@ -30,7 +30,7 @@ export default class TableMixin extends Vue {
   rowData: any = {};
 
   //修改的方法
-  handleEdit(index, row) {
+  handleEdit(row) {
     this.rowData = row;
     this.isShowEditDialog = true;
   }
